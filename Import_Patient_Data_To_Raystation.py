@@ -74,6 +74,7 @@ class import_dicom_class_8B:
             self.patient = get_current("Patient")
             self.patient_id = MRN
             self.patient_db = get_current("PatientDB") #Got a new patient, update the patient db
+            self.case = get_current("Case")
         else:
             print('info found')
             if self.patient_id != MRN:
@@ -96,13 +97,18 @@ class import_dicom_class_8B:
                 self.exams.append(exam.Name)
             if self.round == 1:
                 if uid not in self.imported_uids and uid: #
-                    self.patient.ImportDataFromPath(Path=file_path, CaseName=self.case.CaseName,
-                                                         SeriesOrInstances=series,AllowMismatchingPatientID=True)
+                    try:
+                        self.patient.ImportDataFromPath(Path=file_path, CaseName=self.case.CaseName,
+                                                             SeriesOrInstances=series,AllowMismatchingPatientID=True)
+                        fid = open(os.path.join(file_path, 'imported.txt'), 'w+')
+                        fid.close()
+                    except:
+                        print('some kind of error')
                 else:
                     print('already imported')
                     self.output[MRN].append(self.exams[self.imported_uids.index(uid)])
-                fid = open(os.path.join(file_path,'imported.txt'), 'w+')
-                fid.close()
+                    fid = open(os.path.join(file_path,'imported.txt'), 'w+')
+                    fid.close()
             elif self.round == 2:
                 self.patient.ImportDataFromPath(Path=file_path, CaseName=self.case.CaseName,
                                                 SeriesOrInstances=series, AllowMismatchingPatientID=True)
@@ -227,9 +233,12 @@ class import_dicom_class:
                         self.patient.ImportDicomDataFromPath(Path=file_path, CaseName=self.case.CaseName, SeriesFilter={},
                                                              ImportFilters=[])
                     except:
-                        self.patient.ImportDataFromPath(Path=file_path, CaseName=self.case.CaseName,
-                                                             SeriesFilter={},
-                                                             ImportFilters=[],AllowMismatchingPatientID=True)
+                        try:
+                            self.patient.ImportDataFromPath(Path=file_path, CaseName=self.case.CaseName,
+                                                                 SeriesFilter={},
+                                                                 ImportFilters=[],AllowMismatchingPatientID=True)
+                        except:
+                            print('some kind of error')
                 else:
                     print('already imported')
                     self.output[MRN].append(self.exams[self.imported_uids.index(uid)])
