@@ -292,7 +292,10 @@ if __name__ == "__main__":
             for section in path[1:]:
                 path_CT = os.path.join(path_CT,section)
             print(path_CT)
-            import_class.import_dicoms_new(path_CT)
+            try:
+                import_class.import_dicoms_new(path_CT)
+            except:
+                continue
         import_class.round = 2
         for i in range(len(RT_file_paths)):
             path = RT_file_paths[i]
