@@ -284,13 +284,14 @@ if __name__ == "__main__":
         import_class.round = 1
         for i in range(len(CT_file_paths)):
             path = CT_file_paths[i]
-            path_CT = os.path.join('\\\\Client\\', path[0] + '$')
-            path_temp = path[2:].split('/')
-            if len(path_temp) == 1:
-                path_temp = path[2:].split('\\')
-            path = path_temp
-            for section in path[1:]:
-                path_CT = os.path.join(path_CT,section)
+            path_CT = path
+#             path_CT = os.path.join('\\\\Client\\', path[0] + '$')
+#             path_temp = path[2:].split('/')
+#             if len(path_temp) == 1:
+#                 path_temp = path[2:].split('\\')
+#             path = path_temp
+#             for section in path[1:]:
+#                 path_CT = os.path.join(path_CT,section)
             print(path_CT)
             try:
                 import_class.import_dicoms_new(path_CT)
@@ -299,13 +300,14 @@ if __name__ == "__main__":
         import_class.round = 2
         for i in range(len(RT_file_paths)):
             path = RT_file_paths[i]
-            path_RT = os.path.join('\\\\Client\\', path[0] + '$')
-            path_temp = path[2:].split('/')
-            if len(path_temp) == 1:
-                path_temp = path[2:].split('\\')
-            path = path_temp
-            for section in path[1:]:
-                path_RT = os.path.join(path_RT,section)
+            path_RT = path
+#             path_RT = os.path.join('\\\\Client\\', path[0] + '$')
+#             path_temp = path[2:].split('/')
+#             if len(path_temp) == 1:
+#                 path_temp = path[2:].split('\\')
+#             path = path_temp
+#             for section in path[1:]:
+#                 path_RT = os.path.join(path_RT,section)
             # path_RT = 'r' + path
             try:
                 import_class.import_dicoms_new(path_RT)
