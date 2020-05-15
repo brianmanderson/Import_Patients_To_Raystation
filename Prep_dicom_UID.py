@@ -369,10 +369,6 @@ class prep_dicom:
                 except:
                     continue
         else:
-            if self.overlapping_liver:
-                data_keys = [(0x08,0x033), (0x08,0x032), (0x08,0x031), (0x08,0x030), (0x008,0x021), (0x008,0x022),(0x008,0x02a),(0x020,0x012)]
-            else:
-                data_keys = [(0x08,0x031),(0x020,0x012)]
             data_keys = [(0x08, 0x031), (0x020, 0x012)]
             try:
                 data_all, ds = self.make_uid_and_del_dic(dicom_path,files, data_keys) # Acquisition Time
