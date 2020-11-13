@@ -34,7 +34,7 @@ class Application(Frame):
         self.Go['text'] = 'Running...'
         self.Go.update_idletasks()
         try:
-            min_images = 1
+            min_images = 15
             self.uid_pred.build(overlapping_images=not self.check_box_val_2.get(),overlapping_liver=self.check_box_val.get(), min_size=min_images)
             self.uid_pred.get_input_paths(input_path=self.path)
             self.uid_pred.make_uids()
